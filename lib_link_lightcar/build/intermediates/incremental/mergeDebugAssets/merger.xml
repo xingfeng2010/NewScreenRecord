@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\src\main\assets"/><source path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\src\debug\assets"/></dataSet></merger>

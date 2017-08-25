@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\libs"><file name="fastjson-1.1.40.jar" path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\libs\fastjson-1.1.40.jar"/><file name="leautolinksdk.jar" path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\libs\leautolinksdk.jar"/></source></dataSet><dataSet config="release"><source path="D:\project\thincar_code\NewScreenRecord\lib_link_lightcar\src\release\jniLibs"/></dataSet></merger>
