@@ -1,4 +1,4 @@
-package xingfeng.newscreenrecord;
+package com.letv.leauto.ecolink.ui;
 
 import android.Manifest;
 import android.app.Service;
@@ -31,9 +31,11 @@ import com.leauto.link.lightcar.protocol.DataSendManager;
 import com.leauto.link.lightcar.service.ReceiveDataService;
 import com.leauto.sdk.SdkManager;
 
+import com.letv.leauto.ecolink.R;
+
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback{
+public class MainActivity extends AppCompatActivity{
     private Context mContext;
     private UsbStateReceiver mUsbStateReceiver;
 
@@ -56,11 +58,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         checkPermission();
 
-        mSurfaceView = (SurfaceView) this.findViewById(R.id.preview);
         mContext = this;
-
-        mHolder = mSurfaceView.getHolder();
-        mHolder.addCallback(this);
     }
 
     private void checkPermission() {
@@ -107,21 +105,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         unregisterReceiver(mUsbStateReceiver);
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        startCameraRecord();
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
     }
 
     private class UsbStateReceiver extends BroadcastReceiver {
@@ -220,28 +203,5 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         mLeAutoLinkListner = new LeAutoLinkListner(this, mHandler, mThinCarIAOACallback);
         SdkManager.getInstance(this).initSdk(mLeAutoLinkListner);
         SdkManager.getInstance(this).setKeyboardRemoteListener(mLeAutoLinkListner);
-    }
-
-    private Camera mCamera = null;
-    private MediaRecorder mMediaRecorder;
-
-    private void startCameraRecord() {
-        mCamera = Camera.open();
-        mMediaRecorder = new MediaRecorder();
-
-        mCamera.unlock();
-        mMediaRecorder.setCamera(mCamera);
-
-        mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
-        mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-        mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
-        mMediaRecorder.setOutputFile(targetPath);
-        mMediaRecorder.setPreviewDisplay(mHolder.getSurface());
-        try {
-            mMediaRecorder.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mMediaRecorder.start();
     }
 }

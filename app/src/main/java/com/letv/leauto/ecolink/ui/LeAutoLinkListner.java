@@ -1,10 +1,11 @@
-package xingfeng.newscreenrecord;
+package com.letv.leauto.ecolink.ui;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.letv.leauto.ecolink.R;
 import com.leauto.link.lightcar.IAOACallback;
 import com.leauto.link.lightcar.protocol.DataSendManager;
 import com.leauto.sdk.SdkManager;

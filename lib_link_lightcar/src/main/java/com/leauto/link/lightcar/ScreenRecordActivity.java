@@ -13,6 +13,7 @@ import com.leauto.link.lightcar.aoacheck.AoaCheckList;
 import com.leauto.link.lightcar.aoacheck.AoaWindow;
 import com.leauto.link.lightcar.listener.AoaCheckListener;
 import com.leauto.link.lightcar.module.ThincarDevice;
+import com.leauto.link.lightcar.protocol.DataSendManager;
 
 public class ScreenRecordActivity extends Activity implements AoaCheckListener {
 
@@ -78,7 +79,7 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
         if (intent != null && intent.getAction().equals(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)) {
             mAccesssoryManager.openAccessory();
         } else if (intent != null && intent.getAction().equals(NORMAL_START_ACTIVITY_ACTION)){
-           // startMainActivity(false);
+           startMainActivity(false);
         }
     }
 
@@ -140,7 +141,6 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
         if (mAccesssoryManager != null) {
             mAccesssoryManager.onDestroy();
         }
-        super.onDestroy();
     }
 
     @Override
@@ -155,6 +155,12 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DataSendManager.getInstance().notifyRecordExit();
+        super.onBackPressed();
     }
 
     private void startMainActivity(boolean aoaStart) {
