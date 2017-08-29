@@ -20,7 +20,9 @@ public class RecordApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashHandler crashHandler = CrashHandler.getInstance();
-        crashHandler.init(getApplicationContext());
+//        CrashHandler crashHandler = CrashHandler.getInstance();
+//        crashHandler.init(getApplicationContext());
+        HandlerException handlerException = new HandlerException();
+        handlerException.init(getApplicationContext());
     }
 }

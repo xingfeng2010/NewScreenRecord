@@ -58,7 +58,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
     private static final String VERSION_RELEASE = "version_release";
     private static final String NET_TYPE = "net_type";
     private static final String NET_INFO = "net_info";
-    public static final String LOG_PATH = "Ecolink/log/";
+    public static final String LOG_PATH = "CrashLog/";
     /**
      * 错误报告文件的扩展名
      */

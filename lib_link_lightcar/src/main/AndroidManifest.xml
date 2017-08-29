@@ -18,8 +18,8 @@
         <activity
             android:name="com.leauto.link.lightcar.ScreenRecordActivity"
             android:configChanges="orientation|keyboard|locale|keyboardHidden|screenSize|layoutDirection"
-            android:process=":screen_record"
             android:launchMode="singleInstance"
+            android:process=":screen_record"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
@@ -49,9 +49,9 @@
             android:exported="true" />
         <service
             android:name="com.leauto.link.lightcar.service.SendDataService"
-            android:process=":screen_record"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:process=":screen_record" />
     </application>
 
 </manifest>

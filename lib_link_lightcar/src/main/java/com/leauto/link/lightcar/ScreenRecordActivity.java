@@ -81,6 +81,7 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
         } else if (intent != null && intent.getAction().equals(NORMAL_START_ACTIVITY_ACTION)){
            startMainActivity(false);
         }
+
         intent.setAction(Intent.ACTION_MAIN);
     }
 
