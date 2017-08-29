@@ -51,6 +51,22 @@ public class MainActivity extends AppCompatActivity{
 
     public static String targetPath = android.os.Environment.getExternalStorageDirectory() + "/" + "screen_recod";
 
+    ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mReceiveDataService =  ((ReceiveDataService.ReceiveDataBinder) iBinder).getService();
+            mReceiveDataService.setIAOACallback(mThinCarIAOACallback);
+//            /** 初始化车机SDK */
+//            initLeAuto();
+            DataSendManager.getInstance().sendAppStateToCar(ThinCarDefine.ProtocolToCarParam.PHONE_READY_REC_EVENT_PARAM);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +75,14 @@ public class MainActivity extends AppCompatActivity{
         checkPermission();
 
         mContext = this;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Intent intent = new Intent(this, ReceiveDataService.class);
+        unbindService(conn);
     }
 
     private void checkPermission() {
@@ -75,6 +99,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         initThinCar();
+        /** 初始化车机SDK */
+        initLeAuto();
     }
 
     @Override
@@ -178,21 +204,6 @@ public class MainActivity extends AppCompatActivity{
         this.getIntent().setAction(Intent.ACTION_MAIN);
 
         Intent intent = new Intent(this, ReceiveDataService.class);
-        ServiceConnection conn = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                mReceiveDataService =  ((ReceiveDataService.ReceiveDataBinder) iBinder).getService();
-                mReceiveDataService.setIAOACallback(mThinCarIAOACallback);
-                /** 初始化车机SDK */
-                initLeAuto();
-                DataSendManager.getInstance().sendAppStateToCar(ThinCarDefine.ProtocolToCarParam.PHONE_READY_REC_EVENT_PARAM);
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName componentName) {
-
-            }
-        };
         this.bindService(intent,conn, Service.BIND_AUTO_CREATE);
     }
 

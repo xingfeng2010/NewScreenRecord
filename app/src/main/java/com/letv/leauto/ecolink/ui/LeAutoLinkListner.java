@@ -44,9 +44,11 @@ public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemo
     @Override
     public void NotifyConnectStatus(int state) {
         if (SdkManager.LINK_CONNECTED == state) {
+            showToast("连上");
             DataSendManager.getInstance().notifyCarConnect();
         }
         if (SdkManager.LINK_DISCONNECTED == state) {
+            showToast("断开");
             DataSendManager.getInstance().notifyCarDisConnect();
             // mIAOACallback.onAdbConnectStateChange(ThinCarDefine.ConnectState.STATE_DISCONNECT);
         }
