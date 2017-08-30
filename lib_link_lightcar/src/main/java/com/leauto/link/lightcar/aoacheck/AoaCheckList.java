@@ -24,6 +24,6 @@ public class AoaCheckList {
 
     public static boolean getCheckResult(Context context,String model) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        return sp.getBoolean(model,false);
+        return true;
     }
 }

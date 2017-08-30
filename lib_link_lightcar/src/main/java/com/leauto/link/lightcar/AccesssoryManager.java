@@ -158,33 +158,6 @@ public class AccesssoryManager {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
-                    case ThinCarDefine.ProtocolFromCarAction.START_SCREEN_RECORDER:
-
-                        try {
-                            ScreenRecorderManager.getScreenRecorderManager(mContext).startScreenCaptureIntent((Activity) mContext);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case ThinCarDefine.ProtocolFromCarAction.STOP_SCREEN_RECORDER:
-
-                        try {
-                            ScreenRecorderManager.getScreenRecorderManager(mContext).stopScreenRecorder();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case ThinCarDefine.ProtocolFromCarAction.RESTART_SCREEN_RECORDER:
-
-                        if (ScreenRecorderService.mediaScreenEncoder != null) {
-                            ScreenRecorderService.mediaScreenEncoder = null;
-                        }
-                        try {
-                            ScreenRecorderManager.getScreenRecorderManager(mContext).startScreenCaptureIntent((Activity) mContext);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
                 }
             }
         };
@@ -861,6 +834,8 @@ public class AccesssoryManager {
                     mThincarDevice.setCarCode(header.getStartx());
                     changeDirectinValue(mThincarDevice);
                     LogUtils.i(TAG, "UPDATE_MOUSE_COMMAND ThincarDevice:" + mThincarDevice.toString());
+
+                    ScreenRecorderManager.getScreenRecorderManager(mContext).startScreenCaptureIntent((Activity) mContext);
                     break;
             }
 
@@ -886,10 +861,7 @@ public class AccesssoryManager {
                 }
 
                 LogUtils.i("MainActivity", "handlerMsg START_SCREEN_RECORDER mContext:"+mContext);
-//                    mHandler.sendEmptyMessage(Define.START_SCREEN_RECORDER);
-                if (mContext != null) {
-                    ScreenRecorderManager.getScreenRecorderManager(mContext).startScreenCaptureIntent((Activity) mContext);
-                }
+                mHandler.sendEmptyMessage(ThinCarDefine.ProtocolFromCarAction.START_SCREEN_RECORDER);
                 break;
             case ThinCarDefine.ProtocolFromCarAction.STOP_SCREEN_RECORDER:
                 mHandler.sendEmptyMessage(ThinCarDefine.ProtocolFromCarAction.STOP_SCREEN_RECORDER);
