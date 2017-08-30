@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity{
 
     private final int REQUEST_PERMISSION_CODE = 1;
 
+    private DataSendManager mDataSendManager;
+
     public static String targetPath = android.os.Environment.getExternalStorageDirectory() + "/" + "screen_recod";
 
     ServiceConnection conn = new ServiceConnection() {
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity{
         checkPermission();
 
         mContext = this;
+        mDataSendManager =  DataSendManager.getInstance();
+        mDataSendManager.initDataSendManager(this.getApplicationContext());
     }
 
     @Override
@@ -219,10 +223,10 @@ public class MainActivity extends AppCompatActivity{
                 startRecordActivity(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
                 break;
             case R.id.pause:
-                DataSendManager.getInstance().stopScreenRecorder();
+                mDataSendManager.stopScreenRecorder();
                 break;
             case R.id.resume:
-                DataSendManager.getInstance().resumeScreenRecorder();
+                mDataSendManager.resumeScreenRecorder();
                 break;
         }
     }
