@@ -435,6 +435,26 @@ public class DataSendManager {
         }
     }
 
+    public void stopScreenRecorder() {
+        try {
+            if (mSendDataService != null) {
+                mSendDataService.stopScreenRecorder();
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void resumeScreenRecorder() {
+        try {
+            if (mSendDataService != null) {
+                mSendDataService.resumeScreenRecorder();
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void writePcmToFile(byte[] buff, int src, int re_lenght) {
         File file = new File(targetPath);
         if (!file.exists()) {

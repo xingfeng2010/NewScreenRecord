@@ -8,6 +8,7 @@ import android.os.RemoteException;
 
 import com.leauto.link.lightcar.AccesssoryManager;
 import com.leauto.link.lightcar.ISendDataInterface;
+import com.leauto.link.lightcar.ScreenRecorderManager;
 
 /**
  * 这个service要运行在录屏进程中，用于接收
@@ -52,6 +53,16 @@ public class SendDataService extends Service {
         @Override
         public void notifyRecordExit() {
             AccesssoryManager.getAccesssoryManager(mContext).exitRecordProcess();
+        }
+
+        @Override
+        public void stopScreenRecorder() {
+            ScreenRecorderManager.getScreenRecorderManager(mContext).pauseScreenRecorder();
+        }
+
+        @Override
+        public void resumeScreenRecorder() {
+            ScreenRecorderManager.getScreenRecorderManager(mContext).resumeScreenRecorder();
         }
     }
 }

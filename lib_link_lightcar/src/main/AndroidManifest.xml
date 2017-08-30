@@ -21,13 +21,6 @@
             android:launchMode="singleInstance"
             android:process=":screen_record"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
-                android:resource="@xml/usbdev_extern_filter" />
         </activity>
 
         <!-- 瘦车机service -->

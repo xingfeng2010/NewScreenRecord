@@ -9,4 +9,6 @@ interface ISendDataInterface {
     void notifyCarConnect();
     void notifyCarDisConnect();
     void notifyRecordExit();
+    void stopScreenRecorder();
+    void resumeScreenRecorder();
 }

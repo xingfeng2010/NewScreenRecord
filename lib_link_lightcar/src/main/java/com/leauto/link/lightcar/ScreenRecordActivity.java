@@ -32,6 +32,8 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
     public static final String AOA_START_ACTIVITY_ACTION = "com.leauto.link.lightcar.aoa.start.activity";
     public static final String NORMAL_START_ACTIVITY_ACTION = "com.leauto.link.lightcar.normal.start.activity";
 
+    public static final String AOA_START_RECORD = UsbManager.ACTION_USB_ACCESSORY_ATTACHED;
+
     Handler mHandler = new Handler();
 
     @Override
@@ -76,10 +78,13 @@ public class ScreenRecordActivity extends Activity implements AoaCheckListener {
 
         Intent intent = this.getIntent();
         LogUtils.i(TAG,"onResume intent:" + intent);
-        if (intent != null && intent.getAction().equals(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)) {
-            mAccesssoryManager.openAccessory();
-        } else if (intent != null && intent.getAction().equals(NORMAL_START_ACTIVITY_ACTION)){
-           startMainActivity(false);
+        if (intent != null) {
+            String action = intent.getAction();
+            if (action.equals(AOA_START_RECORD)) {
+                mAccesssoryManager.openAccessory();
+            } else if (action.equals(NORMAL_START_ACTIVITY_ACTION)) {
+                startMainActivity(false);
+            }
         }
 
         intent.setAction(Intent.ACTION_MAIN);

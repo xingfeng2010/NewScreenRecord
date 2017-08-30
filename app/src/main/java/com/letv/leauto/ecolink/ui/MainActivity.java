@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.leauto.link.lightcar.ScreenRecordActivity;
 import com.leauto.link.lightcar.ThinCarDefine;
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity{
                 boolean accessory = intent.getBooleanExtra("accessory", false);
                 if (!adb) {
                     if (connect) {
-                        startRecordActivity(true);
+                       // startRecordActivity(true);
 //                        if (!isAoaRecordSuccess) {
 //                            startRecordActivity(true);
 //                        }
@@ -164,20 +165,16 @@ public class MainActivity extends AppCompatActivity{
                     }
                 } else {
                     if (connect) {
-                        startRecordActivity(false);
+                        startRecordActivity(ScreenRecordActivity.NORMAL_START_ACTIVITY_ACTION);
                     }
                 }
             }
         }
     }
 
-    private void startRecordActivity(boolean isThincar) {
+    private void startRecordActivity(String action) {
         Intent intent = new Intent(mContext, ScreenRecordActivity.class);
-        if (isThincar) {
-            intent.setAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
-        } else {
-            intent.setAction(ScreenRecordActivity.NORMAL_START_ACTIVITY_ACTION);
-        }
+        intent.setAction(action);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         mContext.startActivity(intent);
     }
@@ -214,5 +211,19 @@ public class MainActivity extends AppCompatActivity{
         mLeAutoLinkListner = new LeAutoLinkListner(this, mHandler, mThinCarIAOACallback);
         SdkManager.getInstance(this).initSdk(mLeAutoLinkListner);
         SdkManager.getInstance(this).setKeyboardRemoteListener(mLeAutoLinkListner);
+    }
+
+    public void buttonClick(View view) {
+        switch (view.getId()) {
+            case R.id.start:
+                startRecordActivity(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);
+                break;
+            case R.id.pause:
+                DataSendManager.getInstance().stopScreenRecorder();
+                break;
+            case R.id.resume:
+                DataSendManager.getInstance().resumeScreenRecorder();
+                break;
+        }
     }
 }

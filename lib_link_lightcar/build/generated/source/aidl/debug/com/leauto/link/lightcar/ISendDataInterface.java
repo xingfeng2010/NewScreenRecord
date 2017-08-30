@@ -85,6 +85,20 @@ this.notifyRecordExit();
 reply.writeNoException();
 return true;
 }
+case TRANSACTION_stopScreenRecorder:
+{
+data.enforceInterface(DESCRIPTOR);
+this.stopScreenRecorder();
+reply.writeNoException();
+return true;
+}
+case TRANSACTION_resumeScreenRecorder:
+{
+data.enforceInterface(DESCRIPTOR);
+this.resumeScreenRecorder();
+reply.writeNoException();
+return true;
+}
 }
 return super.onTransact(code, data, reply, flags);
 }
@@ -176,16 +190,48 @@ _reply.recycle();
 _data.recycle();
 }
 }
+@Override public void stopScreenRecorder() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_stopScreenRecorder, _data, _reply, 0);
+_reply.readException();
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+}
+@Override public void resumeScreenRecorder() throws android.os.RemoteException
+{
+android.os.Parcel _data = android.os.Parcel.obtain();
+android.os.Parcel _reply = android.os.Parcel.obtain();
+try {
+_data.writeInterfaceToken(DESCRIPTOR);
+mRemote.transact(Stub.TRANSACTION_resumeScreenRecorder, _data, _reply, 0);
+_reply.readException();
+}
+finally {
+_reply.recycle();
+_data.recycle();
+}
+}
 }
 static final int TRANSACTION_sendDataToCar = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 static final int TRANSACTION_sendCheckButtonRange = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
 static final int TRANSACTION_notifyCarConnect = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
 static final int TRANSACTION_notifyCarDisConnect = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
 static final int TRANSACTION_notifyRecordExit = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
+static final int TRANSACTION_stopScreenRecorder = (android.os.IBinder.FIRST_CALL_TRANSACTION + 5);
+static final int TRANSACTION_resumeScreenRecorder = (android.os.IBinder.FIRST_CALL_TRANSACTION + 6);
 }
 public void sendDataToCar(byte[] data) throws android.os.RemoteException;
 public void sendCheckButtonRange(int width, int height) throws android.os.RemoteException;
 public void notifyCarConnect() throws android.os.RemoteException;
 public void notifyCarDisConnect() throws android.os.RemoteException;
 public void notifyRecordExit() throws android.os.RemoteException;
+public void stopScreenRecorder() throws android.os.RemoteException;
+public void resumeScreenRecorder() throws android.os.RemoteException;
 }
