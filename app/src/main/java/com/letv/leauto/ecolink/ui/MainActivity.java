@@ -155,22 +155,10 @@ public class MainActivity extends AppCompatActivity{
                 boolean connect = intent.getBooleanExtra(USB_CONNECTED, false);
                 boolean adb = intent.getBooleanExtra(USB_FUNCTION_ADB, false);
                 boolean accessory = intent.getBooleanExtra("accessory", false);
-                if (!adb) {
-                    if (connect) {
-                       // startRecordActivity(true);
-//                        if (!isAoaRecordSuccess) {
-//                            startRecordActivity(true);
-//                        }
-//                        isAoaRecordSuccess = false;
-                    } else {
-//                        if (mThinCarIAOACallback != null) {
-//                            mThinCarIAOACallback.onAoaConnectStateChange(ThinCarDefine.ConnectState.STATE_DISCONNECT);
-//                        }
-                    }
+                if (adb && connect) {
+                    startRecordActivity(ScreenRecordActivity.NORMAL_START_ACTIVITY_ACTION);
                 } else {
-                    if (connect) {
-                        startRecordActivity(ScreenRecordActivity.NORMAL_START_ACTIVITY_ACTION);
-                    }
+                    RecordApplication.isAdbConnect = false;
                 }
             }
         }
@@ -185,23 +173,6 @@ public class MainActivity extends AppCompatActivity{
 
     private void initThinCar() {
         mThinCarIAOACallback = new ThinCarIAOACallback(this);
-        /** 表示从aoa过来且连接好了 */
-        String action = this.getIntent().getAction();
-        if (action != null) {
-            if (action.equals(ScreenRecordActivity.AOA_START_ACTIVITY_ACTION)) {
-//                if (EcoApplication.mIsRestart) {
-//                    changeToNavi();
-//                }
-                mThinCarIAOACallback.onAoaConnectStateChange(ThinCarDefine.ConnectState.STATE_CONNECT);
-            } else if (action.equals(ThinCarIAOACallback.ADB_RESTART_ACTIVITY_ACTION)) {
-//                if (EcoApplication.mIsRestart) {
-//                    changeToNavi();
-//                }
-                mThinCarIAOACallback.onAdbConnectStateChange(ThinCarDefine.ConnectState.STATE_CONNECT);
-            }
-        }
-
-      //  EcoApplication.mIsRestart = false;
         this.getIntent().setAction(Intent.ACTION_MAIN);
 
         Intent intent = new Intent(this, ReceiveDataService.class);
@@ -218,6 +189,9 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void buttonClick(View view) {
+        if (RecordApplication.isAdbConnect) {
+            return;
+        }
         switch (view.getId()) {
             case R.id.start:
                 startRecordActivity(UsbManager.ACTION_USB_ACCESSORY_ATTACHED);

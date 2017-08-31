@@ -9,6 +9,8 @@ import android.app.Application;
 public class RecordApplication extends Application {
     public static RecordApplication instance;
 
+    public static boolean isAdbConnect = false;
+
     public static synchronized RecordApplication getInstance() {
         if (null == instance) {
             instance = new RecordApplication();

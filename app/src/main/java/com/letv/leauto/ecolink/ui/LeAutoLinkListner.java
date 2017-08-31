@@ -20,6 +20,7 @@ import com.leauto.sdk.data.KeyboardRemoteControlListener;
 public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemoteControlListener {
 
     private Toast mToast;
+    private IAOACallback mCallBack;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -30,6 +31,7 @@ public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemo
     };
 
     public LeAutoLinkListner(Context context, Handler handler, IAOACallback callback) {
+        mCallBack = callback;
         mToast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
     }
 
@@ -44,13 +46,14 @@ public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemo
     @Override
     public void NotifyConnectStatus(int state) {
         if (SdkManager.LINK_CONNECTED == state) {
+            RecordApplication.isAdbConnect = true;
             showToast("连上");
             DataSendManager.getInstance().notifyCarConnect();
         }
         if (SdkManager.LINK_DISCONNECTED == state) {
+            RecordApplication.isAdbConnect = false;
             showToast("断开");
             DataSendManager.getInstance().notifyCarDisConnect();
-            // mIAOACallback.onAdbConnectStateChange(ThinCarDefine.ConnectState.STATE_DISCONNECT);
         }
     }
 
@@ -61,7 +64,7 @@ public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemo
 
     @Override
     public void remoteDataListener(byte[] bytes, int i) {
-
+        mCallBack.onReceiveData(bytes);
     }
 
     @Override

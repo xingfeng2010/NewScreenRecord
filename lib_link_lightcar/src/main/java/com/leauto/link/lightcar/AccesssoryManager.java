@@ -462,16 +462,6 @@ public class AccesssoryManager {
                         sendConnectWhenAdb();
                         notifyCarNaviEvent(ThinCarDefine.ProtocolToCarParam.CONTROL_LIGHT_AVN_PARAM,
                                 ThinCarDefine.ProtocolToCarAction.LAUNCH_LE_RADION_ACTION, 0);
-
-                        if (mReceiveDataService != null) {
-                            try {
-                                mReceiveDataService.onAdbConnectStateChange(ThinCarDefine.ConnectState.STATE_CONNECT);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            LogUtils.i(TAG,"mReceiveDataService is null !!");
-                        }
                     }
                 });
             }
@@ -1042,15 +1032,6 @@ public class AccesssoryManager {
     }
 
     public void notifyAoaConnected() {
-        try {
-            if (mReceiveDataService != null) {
-                mReceiveDataService.onAoaConnectStateChange(ThinCarDefine.ConnectState.STATE_CONNECT);
-            } else {
-                LogUtils.i(TAG,"notifyAoaConnected mReceiveDataService is null!!!");
-            }
-        } catch (RemoteException e){
-            e.printStackTrace();
-        }
     }
 
     public void exitRecordProcess() {
