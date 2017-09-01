@@ -8,5 +8,5 @@ import com.leauto.link.lightcar.module.AVNInfo;
  * Created by Jerome on 2016/7/7.
  */
 public interface IAOACallback {
-   void onReceiveData(byte[] data);
+   void onReceiveData(MsgHeader headers,byte[] data);
 }

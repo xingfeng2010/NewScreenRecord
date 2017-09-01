@@ -8,7 +8,9 @@ import android.os.RemoteException;
 
 import com.leauto.link.lightcar.IAOACallback;
 import com.leauto.link.lightcar.IReceiveDataInterface;
+import com.leauto.link.lightcar.LogUtils;
 import com.leauto.link.lightcar.MsgHeader;
+import com.leauto.link.lightcar.ThinCarDefine;
 
 /**
  * 这个是位于主应用进程的service，用于读取
@@ -48,13 +50,15 @@ public class ReceiveDataService extends Service {
         @Override
         public void dispatchDataEvent(MsgHeader header, byte[] data) throws RemoteException {
             if (mIAOACallback != null) {
-                mIAOACallback.onReceiveData(data);
+                mIAOACallback.onReceiveData(header,data);
             }
         }
 
         @Override
         public void dispatchNullDataEvent(MsgHeader header) throws RemoteException {
-
+            if (mIAOACallback != null) {
+                mIAOACallback.onReceiveData(header,null);
+            }
         }
     }
 }

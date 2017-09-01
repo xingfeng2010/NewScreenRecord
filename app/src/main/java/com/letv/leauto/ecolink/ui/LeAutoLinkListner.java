@@ -64,7 +64,7 @@ public class LeAutoLinkListner implements CarNaviRemoteDataListener,KeyboardRemo
 
     @Override
     public void remoteDataListener(byte[] bytes, int i) {
-        mCallBack.onReceiveData(bytes);
+       // mCallBack.onReceiveData(bytes);
     }
 
     @Override
